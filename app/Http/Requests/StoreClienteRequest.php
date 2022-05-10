@@ -13,7 +13,7 @@ class StoreClienteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
+            'dni'=> 'required|string|size:9|unique:clientes,dni',
+            'nombre'=> 'required|string|max:255',
         ];
     }
 }
