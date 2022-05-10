@@ -11,8 +11,8 @@ class Cliente extends Model
 
     public function cuentas(){
 
-        return $this->belongsTo(Cuenta::class);
+        return $this->belongsToMany(Cuenta::class);
     }
 
-    
+
 }
