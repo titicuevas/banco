@@ -45,7 +45,7 @@ class ClienteController extends Controller
 
         $cliente ->save();
 
-        return redirect()->route('clientes.index')->with('Success','Cliente creado correctamente');
+        return redirect()->route('clientes.index')->with('success','Cliente creado correctamente');
 
 
 
@@ -71,6 +71,7 @@ class ClienteController extends Controller
     public function edit(Cliente $cliente)
     {
         return view('clientes.edit',['cliente'=>$cliente]);
+
     }
 
     /**
@@ -86,7 +87,7 @@ class ClienteController extends Controller
 
         $cliente->save();
 
-        return redirect()->route('clientes.index')->with('Success','Cliente editado correctamente');
+        return redirect()->route('clientes.index')->with('success','Cliente editado correctamente');
     }
 
     /**
