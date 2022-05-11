@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cuenta extends Model
 {
+
+
     use HasFactory;
+
+
+    protected $fillable = [
+
+        'numero',
+    ];  
 
     public function clientes(){
         return $this->belongsToMany(Cliente::class);

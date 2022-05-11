@@ -30,6 +30,14 @@
 
                     </x-nav-link>
 
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="('/cuentas')" :active="request()->routeIs('/cuentas')">
+                            {{ __('Cuentas') }}
+
+
+
+                        </x-nav-link>
+
                 </div>
 
             </div>

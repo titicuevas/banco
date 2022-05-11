@@ -83,6 +83,8 @@ class ClienteController extends Controller
      */
     public function update(UpdateClienteRequest $request, Cliente $cliente)
     {
+
+        //dd($request->validated());
         $cliente->fill($request->validated());
 
         $cliente->save();

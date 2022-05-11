@@ -18,7 +18,7 @@
   @enderror
   <br>
   <label for="nombre">Nombre</label>
-<input type="text" name="nombre" id="nombre" placeholder="Escriba su nombre"  value="{{old('dni',$cliente->dni)}}">
+<input type="text" name="nombre" id="nombre" placeholder="Escriba su nombre"  value="{{old('nombre',$cliente->nombre)}}">
 @error('nombre')
     <p class="text-red-500 text-sm mt-1">
         {{ $message }}

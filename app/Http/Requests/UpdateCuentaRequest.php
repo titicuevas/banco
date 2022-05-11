@@ -24,7 +24,8 @@ class UpdateCuentaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
+            'numero'=> 'required|size:20|unique:cuentas',
         ];
     }
 }

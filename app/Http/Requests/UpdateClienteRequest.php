@@ -24,7 +24,9 @@ class UpdateClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
+            'dni'=> 'required|string|size:9'    ,
+            'nombre'=> 'required|string|max:255',
         ];
     }
 }
