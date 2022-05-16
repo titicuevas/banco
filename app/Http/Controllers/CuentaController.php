@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCuentaRequest;
 use App\Http\Requests\UpdateCuentaRequest;
+use App\Models\Cliente;
 use App\Models\Cuenta;
+use App\Models\Movimiento;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class CuentaController extends Controller
 {
@@ -98,5 +102,71 @@ class CuentaController extends Controller
         $cuenta->delete();
 
         return redirect()->route('cuentas.index')->with('Success','Cuenta eliminado correctamente');
+    }
+
+    public function titulares(Cuenta $cuenta)
+    {
+        return view('cuentas.titulares', [
+            'cuenta' => $cuenta,
+        ]);
+    }
+    public function addtitular(Cuenta $cuenta)
+    {
+        $clientes = Cliente::all();
+        return view('cuentas.addtitular', [
+            'cuenta' => $cuenta,
+            'clientes' => $clientes,
+        ]);
+    }
+    public function addtitularupdate(Request $request, Cuenta $cuenta)
+    {
+        $cuenta->clientes()->attach($request->cliente);
+        return redirect()->route('cuentas.titulares', $cuenta);
+    }
+    public function deleteTitular(Cuenta $cuenta, Cliente $cliente)
+    {
+        $cliente->cuentas()->detach($cuenta);
+
+        return redirect()->route('cuentas.titulares', $cuenta);
+    }
+
+
+    public function movimientos(Cuenta $cuenta)
+    {
+        $movimientos = $cuenta->withSum('movimientos', 'importe')->get()->where('id', $cuenta->id)->first();
+
+        return view('cuentas.movimientos', [
+            'cuenta' => $cuenta,
+            'movimientos' => $movimientos,
+        ]);
+    }
+
+    public function addmovimiento(Cuenta $cuenta, Movimiento $movimiento)
+    {
+        return view('cuentas.addmovimiento', [
+            'movimiento' => $movimiento,
+            'cuenta' => $cuenta,
+        ]);
+    }
+
+    public function addmovimientostore(Request $request, Cuenta $cuenta)
+    {
+        $movimiento = new Movimiento([
+            'cuenta_id' => $cuenta->id,
+            'fecha' => Carbon::now(),
+            'concepto' => $request->concepto,
+            'importe' => $request->importe,
+        ]);
+
+        $movimiento->save();
+
+        return redirect()->route('cuentas.movimientos', $cuenta);
+    }
+
+    public function deleteMovimiento(Cuenta $cuenta, Movimiento $movimiento)
+    {
+        $movimiento->delete();
+
+        return redirect()->route('cuentas.movimientos', $cuenta);
     }
 }

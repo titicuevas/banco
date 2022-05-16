@@ -9,11 +9,21 @@ class Movimiento extends Model
 {
     use HasFactory;
 
+    protected $table = 'movimientos';
+
+
+    protected $fillable = [
+        'cuenta_id',
+        'fecha',
+        'concepto',
+        'importe',
+    ];
+
     public function cuenta(){
 
         return $this->belongsTo(Cuenta::class);
     }
-    
+
 
 }
 
